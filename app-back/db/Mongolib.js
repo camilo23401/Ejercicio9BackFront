@@ -3,7 +3,7 @@ const assert = require('assert');
 
 const url = "mongodb://127.0.0.1:27017";
 
-const dbName = 'jobOffers';
+const dbName = 'job';
 
 const client = new MongoClient(url, { useUnifiedTopology: true });
 
@@ -26,5 +26,21 @@ const findDocuments = function (db, callback) {
     });
 }
 
+const postDocument = function(db, req, callback) {
+    const collection = db.collection('offers');
+    const item = {
+        name: req.body.name,
+        company: req.body.company,
+        salary: req.body.salary,
+        city: req.body.city
+    }
+    collection.insertOne(item, function (err, docs)
+    {
+        assert.equal(err, null);
+        callback(docs);
+    })
+}
+
 exports.getDatabase = getDatabase;
 exports.findDocuments = findDocuments;
+exports.postDocument = postDocument;

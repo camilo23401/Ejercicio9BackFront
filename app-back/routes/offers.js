@@ -11,4 +11,13 @@ router.get('/', function (req, res, next) {
     })
 });
 
+router.post('/',function(req,res,next)
+{
+    Mongolib.getDatabase(db => {
+        Mongolib.postDocument(db, req, docs => {
+            res.send(docs)
+        })
+    })
+})
+
 module.exports = router;

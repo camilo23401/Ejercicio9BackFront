@@ -1,13 +1,14 @@
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 
-const url = "mongodb://127.0.0.1:27017";
+const url = process.env.mongourl;
 
 const dbName = 'job';
 
 const client = new MongoClient(url, { useUnifiedTopology: true });
 
 const getDatabase = (callback) => {
+    console.log(url);
     client.connect(function (err) {
         assert.equal(null, err);
         console.log("Connected successfully to server");
